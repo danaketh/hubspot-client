@@ -1,0 +1,12 @@
+language: php
+php:
+    - 7.0
+    - 7.1
+    - 7.2
+    - master
+
+before_script:
+    - composer require --dev phpstan/phpstan
+
+script:
+    - vendor/bin/phpstan analyze -l 4 ./danaketh/HubSpot/

@@ -1,0 +1,22 @@
+{
+  "name": "danaketh/hubspot-client",
+  "description": "Client for HubSpot API",
+  "keywords": ["hubspot", "api", "client"],
+  "homepage": "https://github.com/danaketh/hubspot-client",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Daniel Tlach",
+      "homepage": "https://daniel.tlach.cz"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "danaketh\\HubSpot": "danaketh/HubSpot"
+    }
+  }
+}
