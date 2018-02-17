@@ -2,6 +2,10 @@
 
 namespace danaketh\HubSpot;
 
+use danaketh\HubSpot\API\Blog;
+
+
+
 /**
  * HubSpot API client
  *
@@ -12,6 +16,9 @@ class HubSpot
 {
     /** @var string $apiKey */
     protected $apiKey;
+
+    /** @var Blog $blog */
+    protected $blog;
 
 
 
@@ -29,28 +36,19 @@ class HubSpot
 
 
 
-    public function contact()
+    /**
+     * Provides access to the Blog API
+     *
+     * @return Blog
+     */
+    public function blog(): Blog
     {
+        if (!$this->blog) {
+            $this->blog = new Blog($this->apiKey);
+        }
+
+        return $this->blog;
     }
 
 
-
-
-    public function blog()
-    {
-    }
-
-
-
-
-    public function page()
-    {
-    }
-
-
-
-
-    public function form()
-    {
-    }
 }
