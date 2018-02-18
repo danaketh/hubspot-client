@@ -1,0 +1,90 @@
+---
+title: API Docs
+---
+{% assign sorted_collections = site.collections | sort: "position" %}
+{% for collection in sorted_collections %}
+{% assign sorted_docs = collection.docs | sort: "position" %}
+{% for doc in sorted_docs %}
+<section class="doc-content">
+    <section class="left-docs">
+        <h3>
+            <a id="{{ doc.id | replace: '/', '' | replace: '.', '' }}">
+                {{ doc.title }}
+                {% if doc.type %}
+                <span class="endpoint {{ doc.type }}"></span>
+                {% endif %}
+            </a>
+            <a class="editor-link" href="cloudcannon:collections/{{ doc.relative_path }}">Edit</a>
+        </h3>
+        {% if doc.description %}
+        <p class="description">{{ doc.description }}</p>
+        {% endif %}
+
+        {% if doc.parameters and doc.parameters[0].name %}
+        <h6>Parameters</h6>
+        <table width="100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for parameter in doc.parameters %}
+            <tr>
+                <td><code>{{ parameter.name }}</code></td>
+                <td><code>{{ parameter.type }}</code></td>
+                <td>{{ parameter.content | markdownify }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% if doc.filters and doc.filters[0].name %}
+        <h6>Filters</h6>
+        <dl>
+            {% for filter in doc.filters %}
+            <dt><code>{{ filter.name }}</code></dt>
+            <dd>{{ filter.content | markdownify }}</dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
+
+        {% if doc.response and doc.response[0].name %}
+        <h6>Response</h6>
+        <dl>
+            {% for response in doc.response %}
+            <dt><code>{{ response.name }}</code></dt>
+            <dd>{{ response.content | markdownify }}</dd>
+            {% endfor %}
+        </dl>
+        {% endif %}
+
+        {{ doc.content_markdown | markdownify | replace: "
+        <dl>", "<h6>Parameters</h6>
+            <dl>" }}
+
+                {% if doc.left_code_blocks and doc.left_code_blocks[0].code_block %}
+                {% for block in doc.left_code_blocks %}
+                {% include syntax-highlight.html block=block %}
+                {% endfor %}
+                {% endif %}
+
+        {% if doc.endpoint_url %}
+            <hr>
+            <p>You can find the API endpoint documentation at <a rel="noreferrer" href="{{ doc.endpoint_url }}">{{ doc.endpoint_url }}</a></p>
+        {% endif %}
+    </section>
+    {% if doc.right_code_blocks and doc.right_code_blocks[0].code_block %}
+
+    <section class="right-code">
+        {% for block in doc.right_code_blocks %}
+        {% include syntax-highlight.html block=block %}
+        {% endfor %}
+    </section>
+    {% endif %}
+</section>
+{% endfor %}
+{% endfor %}
