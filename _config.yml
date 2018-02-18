@@ -1,4 +1,71 @@
-title: HubSpot API client documentation
-email: it@danaketh.com
-description: A documentation for the HubSpot API client
-theme: jekyll-theme-cayman
+# ----
+# Site
+
+title: HubSpot API Client
+description: Documentation of the HubSpot API client.
+url: https://github.com/danaketh/hubspot-client
+permalink: pretty
+
+collections:
+  documentation:
+    title: Documentation
+    position: 1
+  api:
+    title: APIs
+    position: 2
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - LICENSE
+  - vendor
+  - composer.lock
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+  -
+    scope:
+      type: "documentation"
+    values:
+      _hide_content: true
+  -
+    scope:
+      type: "api"
+    values:
+      _hide_content: true
+
+types:
+  - get
+  - put
+  - delete
+  - post
+  - patch
+
+languages:
+  bash: Bash
+  c: C
+  css: CSS
+  html: HTML
+  java: Java
+  javascript: JavaScript
+  json: JSON
+  php: PHP
+  python: Python
+  ruby: Ruby
+
+_options:
+  content_markdown:
+    format: p h4 h5 h6
+    bold: true
+    italic: true
+    link: true
+    bulletedlist: true
+    numberedlist: true
+    image: true
+    table: true
+    styles: /css/editor.css
