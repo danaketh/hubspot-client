@@ -8,4 +8,4 @@ phpstan:
 
 phpunit:
     script:
-        - vendor/bin/phpunit --configuration=phpunit.xml
+        - vendor/bin/phpunit --configuration=phpunit.xml --coverage-text
