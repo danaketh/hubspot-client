@@ -14,6 +14,12 @@ use danaketh\HubSpot\Exception\RequestException;
  */
 class Request
 {
+    /** @var boolean $flagVerifySSL Should NEVER be set FALSE in production */
+    protected static $flagVerifySSL = true;
+
+
+
+
     /**
      * @param string $url
      *
@@ -26,6 +32,7 @@ class Request
         curl_setopt_array($instance, [
             CURLOPT_RETURNTRANSFER => true,
         ]);
+        self::disableSSL($instance);
         $request = curl_exec($instance);
 
         if (!$request) {
@@ -53,6 +60,7 @@ class Request
             CURLOPT_POST           => true,
             CURLOPT_POSTFIELDS     => $data
         ]);
+        self::disableSSL($instance);
         $request = curl_exec($instance);
 
         if (!$request) {
@@ -80,6 +88,7 @@ class Request
             CURLOPT_CUSTOMREQUEST  => 'PUT',
             CURLOPT_POSTFIELDS     => $data
         ]);
+        self::disableSSL($instance);
         $request = curl_exec($instance);
 
         if (!$request) {
@@ -105,6 +114,7 @@ class Request
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST  => 'DELETE'
         ]);
+        self::disableSSL($instance);
         $request = curl_exec($instance);
 
         if (!$request) {
@@ -130,8 +140,9 @@ class Request
         curl_setopt_array($instance, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST  => 'PATCH',
-            CURLOPT_POSTFIELDS     => $data
+            CURLOPT_POSTFIELDS     => $data,
         ]);
+        self::disableSSL($instance);
         $request = curl_exec($instance);
 
         if (!$request) {
@@ -139,6 +150,37 @@ class Request
         }
 
         return self::response($request, $instance);
+    }
+
+
+
+
+    /**
+     * Triggers the SSL verification. This is inteded ONLY for development purposes
+     * you should NEVER use this in production code!
+     *
+     * @param boolean $flag
+     */
+    public static function setSSLVerification($flag)
+    {
+        self::$flagVerifySSL = $flag;
+    }
+
+
+
+
+    /**
+     * Disables the SSL verification for cURL. This is inteded ONLY for development purposes
+     * you should NEVER use this in production code!
+     *
+     * @param resource $instance
+     */
+    protected static function disableSSL($instance)
+    {
+        if (self::$flagVerifySSL === false) {
+            curl_setopt($instance, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($instance, CURLOPT_SSL_VERIFYHOST, false);
+        }
     }
 
 
