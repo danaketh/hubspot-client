@@ -21,4 +21,10 @@
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./danaketh/HubSpot</directory>
+        </whitelist>
+    </filter>
 </phpunit>
