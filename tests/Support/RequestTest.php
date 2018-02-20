@@ -14,7 +14,6 @@ class RequestTest extends TestCase
     public function testGet()
     {
         $response = Request::get('http://httpbin.org/get');
-
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
         $this->assertArrayHasKey('origin', $response['body']);
@@ -28,11 +27,13 @@ class RequestTest extends TestCase
      */
     public function testPost()
     {
-        $response = Request::post('http://httpbin.org/post');
-
+        $response = Request::post('http://httpbin.org/post', [
+            'purpose' => 'test of POST'
+        ]);
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
-        $this->assertArrayHasKey('origin', $response['body']);
+        $this->assertArrayHasKey('purpose', $response['body']['form']);
+        $this->assertEquals('test of POST', $response['body']['form']['purpose']);
     }
 
 
@@ -43,11 +44,13 @@ class RequestTest extends TestCase
      */
     public function testPut()
     {
-        $response = Request::put('http://httpbin.org/put');
-
+        $response = Request::put('http://httpbin.org/put', [
+            'purpose' => 'test of PUT'
+        ]);
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
-        $this->assertArrayHasKey('origin', $response['body']);
+        $this->assertArrayHasKey('purpose', $response['body']['form']);
+        $this->assertEquals('test of PUT', $response['body']['form']['purpose']);
     }
 
 
@@ -58,11 +61,13 @@ class RequestTest extends TestCase
      */
     public function testPatch()
     {
-        $response = Request::patch('http://httpbin.org/patch');
-
+        $response = Request::patch('http://httpbin.org/patch', [
+            'purpose' => 'test of PATCH'
+        ]);
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
-        $this->assertArrayHasKey('origin', $response['body']);
+        $this->assertArrayHasKey('purpose', $response['body']['form']);
+        $this->assertEquals('test of PATCH', $response['body']['form']['purpose']);
     }
 
 
@@ -74,9 +79,8 @@ class RequestTest extends TestCase
     public function testDelete()
     {
         $response = Request::delete('http://httpbin.org/delete');
-
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
-        $this->assertArrayHasKey('origin', $response['body']);
+        $this->assertEquals(200, $response['code']);
     }
 }
