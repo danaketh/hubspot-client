@@ -157,7 +157,7 @@ class Request
 
         return [
             'code'         => $info['http_code'],
-            'body'         => $info['content_type'] === 'application/json'
+            'body'         => strpos($info['content_type'], 'application/json') !== false
                 ? json_decode($request, JSON_OBJECT_AS_ARRAY)
                 : $request,
             'content-type' => $info['content_type'],
