@@ -66,8 +66,8 @@ class Request
 
 
     /**
-     * @param $url
-     * @param $data
+     * @param string $url
+     * @param array  $data
      *
      * @return array
      * @throws RequestException
