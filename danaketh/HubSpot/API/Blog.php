@@ -20,7 +20,7 @@ class Blog
     /**
      * Blog constructor.
      *
-     * @param $apiKey
+     * @param string $apiKey
      */
     public function __construct($apiKey)
     {
