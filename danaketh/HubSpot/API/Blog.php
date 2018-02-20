@@ -2,6 +2,9 @@
 
 namespace danaketh\HubSpot\API;
 
+use danaketh\HubSpot\Support\Request;
+
+
 
 /**
  * Class Blog
@@ -13,6 +16,9 @@ class Blog
 {
     /** @var string $apiKey */
     protected $apiKey;
+
+    /** @var string $apiUrl */
+    protected $apiUrl = 'https://api.hubspot.com';
 
 
 
@@ -36,6 +42,7 @@ class Blog
      * @param array $filters
      *
      * @return array
+     * @throws \danaketh\HubSpot\Exception\RequestException
      */
     public function list(array $filters = []): array
     {
@@ -63,7 +70,11 @@ class Blog
             $params[$f] = $v;
         }
 
-        return [];
+        $url = sprintf('%s/content/api/v2/blogs?%s', $this->apiUrl, http_build_query($params));
+
+        $response = Request::get($url);
+
+        return $response['body'];
     }
 
 
