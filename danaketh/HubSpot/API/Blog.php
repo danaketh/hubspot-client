@@ -70,8 +70,7 @@ class Blog
             $params[$f] = $v;
         }
 
-        $url = sprintf('%s/content/api/v2/blogs?%s', $this->apiUrl, http_build_query($params));
-
+        $url = sprintf('%s/content/api/v2/blogs?hapikey=%s&%s', $this->apiUrl, $this->apiKey, http_build_query($params));
         $response = Request::get($url);
 
         return $response['body'];
