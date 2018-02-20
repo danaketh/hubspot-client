@@ -32,6 +32,7 @@ class RequestTest extends TestCase
         ]);
         $this->assertArrayHasKey('code', $response);
         $this->assertArrayHasKey('body', $response);
+        $this->assertArrayHasKey('form', $response['body']);
         $this->assertArrayHasKey('purpose', $response['body']['form']);
         $this->assertEquals('test of POST', $response['body']['form']['purpose']);
     }
