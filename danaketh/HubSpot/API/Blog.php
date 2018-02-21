@@ -82,14 +82,14 @@ class Blog
     /**
      * Get blog by ID
      *
-     * @param integer $id
+     * @param integer $blogId
      *
      * @return array
      * @throws \danaketh\HubSpot\Exception\RequestException
      */
-    public function getById($id): array
+    public function getById($blogId): array
     {
-        $url = sprintf('%s/content/api/v2/blogs/%s?hapikey=%s', $this->apiUrl, $id, $this->apiKey);
+        $url = sprintf('%s/content/api/v2/blogs/%s?hapikey=%s', $this->apiUrl, $blogId, $this->apiKey);
         $response = Request::get($url);
 
         return $response['body'];
@@ -101,14 +101,14 @@ class Blog
     /**
      * List previous versions of the blog
      *
-     * @param $id
+     * @param integer $blogId
      *
      * @return array
      * @throws \danaketh\HubSpot\Exception\RequestException
      */
-    public function revisions($id): array
+    public function revisions($blogId): array
     {
-        $url = sprintf('%s/content/api/v2/blogs/%s/versions?hapikey=%s', $this->apiUrl, $id, $this->apiKey);
+        $url = sprintf('%s/content/api/v2/blogs/%s/versions?hapikey=%s', $this->apiUrl, $blogId, $this->apiKey);
         $response = Request::get($url);
 
         return $response['body'];
@@ -117,9 +117,21 @@ class Blog
 
 
 
-    public function revision(): array
+    /**
+     * Get the previous version of the blog
+     *
+     * @param integer $blogId
+     * @param integer $revisionId
+     *
+     * @return array
+     * @throws \danaketh\HubSpot\Exception\RequestException
+     */
+    public function revision($blogId, $revisionId): array
     {
+        $url = sprintf('%s/content/api/v2/blogs/%s/versions/%s?hapikey=%s', $this->apiUrl, $blogId, $revisionId, $this->apiKey);
+        $response = Request::get($url);
 
+        return $response['body'];
     }
 
 

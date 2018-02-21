@@ -65,7 +65,19 @@ class BlogTest extends TestCase
 
     public function testGetRevision()
     {
+        $blogId = 351076997;
+        $revisionId = 12926383;
 
+        try {
+            $revision = $this->api->revision($blogId, $revisionId);
+        } catch (RequestException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        // This is fine. We know the revision doesn't exist so this is mainly to test
+        // that we get a response from the endpoint
+        $this->assertArrayHasKey('message', $revision);
+        $this->assertEquals('resource not found', $revision['message']);
     }
 
 
