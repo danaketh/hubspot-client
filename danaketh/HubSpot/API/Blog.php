@@ -82,8 +82,9 @@ class Blog
     /**
      * Prepare the `created` filter
      *
-     * @param array $values
-     * @param array $allowed
+     * @param string $filter
+     * @param array  $values
+     * @param array  $allowed
      *
      * @return array
      */
