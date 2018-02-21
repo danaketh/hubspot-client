@@ -98,9 +98,20 @@ class Blog
 
 
 
-    public function revisions(): array
+    /**
+     * List previous versions of the blog
+     *
+     * @param $id
+     *
+     * @return array
+     * @throws \danaketh\HubSpot\Exception\RequestException
+     */
+    public function revisions($id): array
     {
+        $url = sprintf('%s/content/api/v2/blogs/%s/versions?hapikey=%s', $this->apiUrl, $id, $this->apiKey);
+        $response = Request::get($url);
 
+        return $response['body'];
     }
 
 

@@ -48,7 +48,16 @@ class BlogTest extends TestCase
 
     public function testListRevisions()
     {
+        $blogId = 351076997;
 
+        try {
+            $revisions = $this->api->revisions($blogId);
+        } catch (RequestException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertGreaterThan(0, count($revisions));
+        $this->assertArrayHasKey('object', $revisions[0]);
     }
 
 
