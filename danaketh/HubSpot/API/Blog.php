@@ -80,6 +80,41 @@ class Blog
 
 
     /**
+     * Get blog by ID
+     *
+     * @param integer $id
+     *
+     * @return array
+     * @throws \danaketh\HubSpot\Exception\RequestException
+     */
+    public function getById($id): array
+    {
+        $url = sprintf('%s/content/api/v2/blogs/%s?hapikey=%s', $this->apiUrl, $id, $this->apiKey);
+        $response = Request::get($url);
+
+        return $response['body'];
+    }
+
+
+
+
+    public function revisions(): array
+    {
+
+    }
+
+
+
+
+    public function revision(): array
+    {
+
+    }
+
+
+
+
+    /**
      * Prepare the `created` filter
      *
      * @param string $filter

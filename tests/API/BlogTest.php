@@ -15,7 +15,7 @@ class BlogTest extends TestCase
 
 
 
-    public function testListBlogs()
+    public function testList()
     {
         try {
             $blogs = $this->api->list();
@@ -24,6 +24,39 @@ class BlogTest extends TestCase
         }
 
         $this->assertArrayHasKey('objects', $blogs);
+    }
+
+
+
+
+    public function testGetById()
+    {
+        $blogId = 351076997;
+
+        try {
+            $blog = $this->api->getById($blogId);
+        } catch (RequestException $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $this->assertArrayHasKey('id', $blog);
+        $this->assertEquals($blogId, $blog['id']);
+    }
+
+
+
+
+    public function testListRevisions()
+    {
+
+    }
+
+
+
+
+    public function testGetRevision()
+    {
+
     }
 
 
